@@ -1,0 +1,59 @@
+version: '3'
+
+services: 
+    app:
+        container_name: laravel
+        entrypoint: ./.docker/entrypoint.sh
+        image: ferreirafernandar/laravel-docker:latest
+        volumes:
+            - .:/var/www
+        networks:
+            - app-network  
+        depends_on:
+            - db
+        environment:
+            - _DB_HOST=db
+            - _DB_DATABASE=laravel
+            - _DB_USERNAME=root
+            - _DB_PASSWORD=root         
+     
+    nginx:
+        build: ./.docker/nginx
+        container_name: nginx
+        restart: always
+        tty: true
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www
+        networks:
+            - app-network
+        depends_on:
+            - app        
+    db:
+        build: ./.docker/mysql
+        container_name: mysql
+        restart: always
+        tty: true
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./.docker/data:/var/lib/mysql
+        networks:
+            - app-network  
+        environment:
+            - MYSQL_DATABASE=laravel
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=root   
+
+    redis:
+        image: redis:alpine
+        container_name: redis
+        ports:
+            - "6379:6379"        
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
