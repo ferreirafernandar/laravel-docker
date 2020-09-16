@@ -5,7 +5,7 @@
   steps:
     - id: "Rodando docker-compose"
     - name: 'gcr.io/$PROJECT_ID/docker-compose'
-      args: ['-f'. 'docker-compose.yaml', 'up', '-d']
+      args: ['-f', 'docker-compose.yaml', 'up', '-d']
 #         - 'build'
 #         - '--build-arg'
 #         - 'DOCKER_COMPOSE_VERSION=${_DOCKER_COMPOSE_VERSION}'
