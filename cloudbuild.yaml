@@ -4,7 +4,7 @@
 #     _DOCKER_COMPOSE_VERSION: 1.25.5
   steps:
     - id: "Rodando docker-compose"
-    - name: 'gcr.io/$PROJECT_ID/docker-compose'
+    - name: 'gcr.io/laravel-289720/docker-compose'
       args: ['-f'. 'docker-compose.yml', 'up', '-d']
 #         - 'build'
 #         - '--build-arg'
