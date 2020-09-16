@@ -3,6 +3,7 @@ version: '3'
 services: 
     app:
         container_name: laravel
+        entrypoint: dockerize -template ./docker/app/.env:.env -wait tcp://db:3306 -timeout 40s ./docker/entrypoint.sh
         image: ferreirafernandar/laravel-docker:latest
         volumes:
             - .:/var/www
@@ -10,7 +11,12 @@ services:
             - app-network  
         depends_on:
             - db
-            - redis   
+            - redis
+        environment:
+            - _DB_HOST=db
+            - _DB_DATABASE=laravel-docker
+            - _DB_USERNAME=root
+            - _DB_PASSWORD=root         
      
     nginx:
         image: ferreirafernandar/nginx-dockerize:latest
