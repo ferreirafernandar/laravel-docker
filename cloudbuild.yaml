@@ -10,10 +10,10 @@
     - id: 'Rodando docker ps'  
       name: 'gcr.io/cloud-builders/docker'
       args: ['ps']
-      
+
     - id: 'Rodando composer'  
       name: 'gcr.io/cloud-builders/docker'
-      args: ['exec', '-t', 'app', 'composer', 'install']
+      args: ['exec', '-t', 'laravel', 'composer', 'install']
 #         - 'build'
 #         - '--build-arg'
 #         - 'DOCKER_COMPOSE_VERSION=${_DOCKER_COMPOSE_VERSION}'
